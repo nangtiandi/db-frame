@@ -30,24 +30,32 @@ class ProfileController extends Controller
     public function updateProfileView(){
         return view('profile.index');
     }
+    public function updatePhoto(Request $request){
+        $request->validate([
+            'photo' => 'required|file|mimes:png,jpeg,jpg,max:1000',
+        ]);
+        $newName = uniqid()."_profile.".$request->file('photo')->extension();
+        $request->file('photo')->storeAs("public/profile",$newName);
+        $currentUser = User::find(Auth::id());
+        $currentUser->photo = $newName;
+        $currentUser->update();
+
+        return redirect()->back();
+    }
     public function updateProfile(Request $request){
         $request->validate([
            'name' => 'required',
             'email' => 'required',
-            'phone' => 'required',
             'bio' => 'required|max:225',
-            'photo' => 'required|file|mimes:png,jpeg,jpg,max:1000',
+            'phone' => 'required',
         ]);
 
-        $newName = uniqid()."_profile.".$request->file('photo')->extension();
-        $request->file('photo')->storeAs("public/profile",$newName);
 
         $currentUser = User::find(Auth::id());
         $currentUser->name = $request->name;
         $currentUser->email = $request->email;
         $currentUser->phone = $request->phone;
         $currentUser->bio = $request->bio;
-        $currentUser->photo = $newName;
         $currentUser->update();
 
         return redirect()->back();

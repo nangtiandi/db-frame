@@ -1,7 +1,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; <a href="https://github.com">NANG TIAN TI</a></span>
+            <span>Copyright &copy; <a href="https://github.com/nangtiandi">NANG TIAN TI</a></span>
         </div>
     </div>
 </footer>
@@ -59,15 +59,16 @@
 <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
 <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
 <script>
-    let photoForm = document.getElementById('photoForm');
+    let photoUpload = document.getElementById('photoUpload');
     let photoInput = document.getElementById('photoInput');
-    let photoBtn = document.getElementById('photoBtn');
-    photoBtn.addEventListener('click',()=>{
+    let photoForm = document.getElementById('photoForm');
+
+    photoUpload.addEventListener('click', ()=>{
         photoInput.click();
-    });
-    photoInput.addEventListener('change',()=>{
-        photoForm.click()
     })
+    photoInput.addEventListener('change',()=>{
+        photoForm.submit();
+    });
 </script>
 </body>
 

@@ -6,7 +6,16 @@
                 <div class="card-body">
                     <table class="table align-middle">
                         <div class="d-flex align-items-center">
-                            <img src="{{asset('storage/profile/'.Auth::user()->photo)}}" alt="" style="width: 100px;height:auto;border-radius: 50%;" class="img-fluid mb-3">
+                            <img src="{{asset('storage/profile/'.Auth::user()->photo)}}" alt="" style="width: 100px;height:100px;object-fit: cover;border-radius: 50%;" class="img-fluid mb-3">
+                            <div class="mb-3">
+                                <form action="{{route('profile.update-photo')}}" method="post" enctype="multipart/form-data" id="photoForm">
+                                    @csrf
+                                    <button type="button" class="btn btn-outline-secondary mx-3 @error('photo') is-invalid @enderror" id="photoUpload">
+                                        Choose Image <i class="fas fa-plus"></i>
+                                    </button>
+                                    <input type="file" name="photo" id="photoInput" class="d-none">
+                                </form>
+                            </div>
                         </div>
 
                         <tr>
@@ -35,20 +44,14 @@
                     <form action="{{route('profile.update-profile')}}" method="post" enctype="multipart/form-data">
                         @csrf
 {{--                        <div class="mb-3">--}}
-{{--                            <button class="btn btn-outline-secondary mx-3" id="photoBtn">--}}
-{{--                                Choose Image <i class="fas fa-plus"></i>--}}
-{{--                            </button>--}}
-{{--                                <input type="file" name="photo" id="photoInput" class="d-none">--}}
+{{--                            <label for="" class="form-label">Your Photo</label>--}}
+{{--                            <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror">--}}
+{{--                            @error('photo')--}}
+{{--                            <span class="invalid-feedback" role="alert">--}}
+{{--                                <strong>{{ $message }}</strong>--}}
+{{--                            </span>--}}
+{{--                            @enderror--}}
 {{--                        </div>--}}
-                        <div class="mb-3">
-                            <label for="" class="form-label">Your Photo</label>
-                            <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror">
-                            @error('photo')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Your Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}">

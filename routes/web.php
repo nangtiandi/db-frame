@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function (){
         Route::view("/","profile.index")->name('index');
         Route::get('/change-profile',[ProfileController::class,'updateProfileView'])->name('update-profile');
         Route::post('/change-profile',[ProfileController::class,'updateProfile'])->name('update-profile');
+        Route::post('/update-photo',[ProfileController::class,'updatePhoto'])->name('update-photo');
         Route::get("/change-password",[ProfileController::class,'changePassword'])->name('change-password');
         Route::post("/change-password",[ProfileController::class,'updatePassword'])->name('change-password');
     });
